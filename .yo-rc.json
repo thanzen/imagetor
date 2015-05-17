@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "app-name": "imagetor",
+    "architecture": false,
+    "styles-language": "css"
+  }
+}
