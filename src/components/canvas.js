@@ -63,7 +63,7 @@ module.exports = React.createClass({
             img.src = aImg.target.result;
             if(count===0){
               count++;
-              self.canvas.setBackgroundImage(  img.src ,function(){});
+              self.canvas.setBackgroundImage(  img.src ,self.canvas.renderAll.bind(self.canvas));
             }else{
               var imgInstance = new fabric.Image(img, {});
               self.canvas.selection = true;
@@ -74,8 +74,8 @@ module.exports = React.createClass({
 
         reader.readAsDataURL(file);
     },
-    checkSize: function() {
-      this.canvas.selection =false;
+    preview: function() {
+      this.canvas.deactivateAllWithDispatch();
       var img =document.getElementById("preview");
       img.src = this.canvas.toDataURL('png');
       this.canvas.selection = true;
@@ -86,7 +86,7 @@ module.exports = React.createClass({
           <div>
             <div>
               <input type = "file"  accept = "image/*" onChange = {this.handleFile}/>
-              <button onClick = {this.checkSize}>Preview</button>
+              <button onClick = {this.preview}>Preview</button>
             </div>
             <canvas width = "800" height = "600" id = {this.id}></canvas>
             <img id="preview"></img>
