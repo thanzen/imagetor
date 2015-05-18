@@ -60,7 +60,6 @@ module.exports = React.createClass({
         img.classList.add("obj");
         img.file = file;
         reader.onload = function(aImg) {
-
             img.src = aImg.target.result;
             var imgInstance = new fabric.Image(img, {});
             self.canvas.selection = true;
@@ -70,16 +69,19 @@ module.exports = React.createClass({
         reader.readAsDataURL(file);
     },
     checkSize: function() {
-        alert(this.canvas.toDataURL('png').length)
+      var img =document.getElementById("preview");
+      img.src = this.canvas.toDataURL('png');
+      //  alert(this.canvas.toDataURL('png').length)
     },
     render: function() {
         return (
           <div>
             <div>
               <input type = "file"  accept = "image/*" onChange = {this.handleFile}/>
-              <button onClick = {this.checkSize}>checkSize</button>
+              <button onClick = {this.checkSize}>Preview</button>
             </div>
-            <canvas width = "500" height = "400" id = {this.id}></canvas>
+            <canvas width = "800" height = "600" id = {this.id}></canvas>
+            <img id="preview"></img>
           </div>
         )
 
