@@ -11,7 +11,7 @@ var colors = {
     dark: '#66CCFF',
     bg: '#989898'
 };
-
+var count = 0;
 module.exports = React.createClass({
     displayName: 'Imagetor',
     stage: null,
@@ -61,16 +61,24 @@ module.exports = React.createClass({
         img.file = file;
         reader.onload = function(aImg) {
             img.src = aImg.target.result;
-            var imgInstance = new fabric.Image(img, {});
-            self.canvas.selection = true;
-            self.canvas.add(imgInstance);
+            if(count===0){
+              count++;
+              self.canvas.setBackgroundImage(  img.src ,function(){});
+            }else{
+              var imgInstance = new fabric.Image(img, {});
+              self.canvas.selection = true;
+              self.canvas.add(imgInstance);
+            }
+
         }
 
         reader.readAsDataURL(file);
     },
     checkSize: function() {
+      this.canvas.selection =false;
       var img =document.getElementById("preview");
       img.src = this.canvas.toDataURL('png');
+      this.canvas.selection = true;
       //  alert(this.canvas.toDataURL('png').length)
     },
     render: function() {
