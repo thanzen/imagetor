@@ -1,11 +1,6 @@
 /// <reference path="./libs/definitions/fabric.d.ts"/>
-(function (MediaType) {
-    MediaType[MediaType["png"] = 0] = "png";
-    MediaType[MediaType["bmp"] = 1] = "bmp";
-    MediaType[MediaType["gif"] = 2] = "gif";
-    MediaType[MediaType["svg"] = 3] = "svg";
-})(exports.MediaType || (exports.MediaType = {}));
-var MediaType = exports.MediaType;
+var disp = require("./dispatcher");
+var dispatcher = disp.dispatcher;
 var Stage = (function () {
     function Stage(id, width, height) {
         if (id === "") {
@@ -13,7 +8,11 @@ var Stage = (function () {
         }
         this.stage = new fabric.Canvas(id);
         this.setSize(width, height);
+        this.setSelectable(true);
     }
+    Stage.prototype.setSelectable = function (allow) {
+        this.stage.selection = allow;
+    };
     Stage.prototype.setSize = function (width, height) {
         if (width > 0) {
             this.stage.setWidth(width);
@@ -22,14 +21,14 @@ var Stage = (function () {
             this.stage.setHeight(height);
         }
     };
-    Stage.prototype.setBackgroundImage = function (image) {
-        this.stage.setBackgroundImage(image, function () { });
-    };
-    Stage.prototype.addImage = function (image) {
-        this.stage.add(image);
+    Stage.prototype.setBackgroundImage = function (url_or_data, callback) {
+        this.stage.setBackgroundImage(url_or_data, callback);
     };
     Stage.prototype.getImageAsString = function (imgType) {
         return this.stage.toDataURL(imgType.toString());
+    };
+    Stage.prototype.clear = function () {
+        this.stage.clear();
     };
     return Stage;
 })();

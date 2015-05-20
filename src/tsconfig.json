@@ -15,7 +15,10 @@
         "!./node_modules/**/*.ts"
     ],
     "files": [
+        "./dispatcher.ts",
+        "./enums.ts",
         "./libs/definitions/fabric.d.ts",
+        "./libs/definitions/flux.d.ts",
         "./stage.ts"
     ]
 }

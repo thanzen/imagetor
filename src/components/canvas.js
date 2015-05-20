@@ -1,5 +1,6 @@
 var React = require("react/addons");
 var uuid = require("./uuid");
+var LocalItem = require("./navitems/LocalImage");
 var fabric = require("../libs/fabric.js").fabric;
 var EVENTS = [
     'activate', 'blur', 'change', 'deactivate', 'focus', 'hide',
@@ -14,7 +15,7 @@ var colors = {
 var count = 0;
 module.exports = React.createClass({
     displayName: 'Imagetor',
-    stage: null,
+    canvas: null,
     propTypes: {
         config: React.PropTypes.object,
         content: React.PropTypes.string,
@@ -68,10 +69,13 @@ module.exports = React.createClass({
               var imgInstance = new fabric.Image(img, {});
               self.canvas.selection = true;
               self.canvas.add(imgInstance);
+              var text = new fabric.IText('text', { left: 100, top: 100 });
+              self.canvas.add(text);
+
+
             }
 
         }
-
         reader.readAsDataURL(file);
     },
     preview: function() {
@@ -81,15 +85,24 @@ module.exports = React.createClass({
       this.canvas.selection = true;
       //  alert(this.canvas.toDataURL('png').length)
     },
+    setText:function(){
+      var text= this.canvas.getActiveObject();
+      if (text instanceof fabric.Text){
+       text.setText("ok changed!");
+      this.canvas.renderAll();
+      }
+    },
     render: function() {
         return (
           <div>
             <div>
               <input type = "file"  accept = "image/*" onChange = {this.handleFile}/>
               <button onClick = {this.preview}>Preview</button>
+              <button onClick = {this.setText}>Text</button>
             </div>
             <canvas width = "800" height = "600" id = {this.id}></canvas>
             <img id="preview"></img>
+            <LocalItem></LocalItem>
           </div>
         )
 
