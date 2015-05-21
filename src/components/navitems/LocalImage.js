@@ -24,12 +24,11 @@ module.exports = React.createClass({
       reader.onload = function(aImg) {
           img.src = aImg.target.result;
           var imgInstance = new fabric.Image(img, {});
-          //self.canvas.add(imgInstance);
+          self.props.stage.add(imgInstance);
       }
       reader.readAsDataURL(file);
   },
   render : function(){
-
     var icon = null;
     if(this.iconUrl!==""){
        icon = <img src={this.iconUrl} alt={this.toolTip}></img>;

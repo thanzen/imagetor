@@ -40,17 +40,19 @@ module.exports = React.createClass({
             config: {}
         };
     },
-
+    getInitialState: function () {
+        return {canvas:{}};
+    },
     componentWillMount: function() {
         this.id = this.id || uuid();
     },
 
     componentDidMount: function() {
-        this.canvas = new fabric.Canvas(this.id);
+        this.setState({stage: new fabric.Canvas(this.id)});
     },
 
     componentWillUnmount: function() {
-        this.canvas.dispose();
+        this.state.stage.dispose();
     },
 
     handleFile: function(e) {
@@ -64,32 +66,30 @@ module.exports = React.createClass({
             img.src = aImg.target.result;
             if(count===0){
               count++;
-              self.canvas.setBackgroundImage(  img.src ,self.canvas.renderAll.bind(self.canvas));
+              self.state.stage.setBackgroundImage(  img.src ,self.state.stage.renderAll.bind(self.state.stage));
             }else{
               var imgInstance = new fabric.Image(img, {});
-              self.canvas.selection = true;
-              self.canvas.add(imgInstance);
+              self.state.stage.selection = true;
+              self.state.stage.add(imgInstance);
               var text = new fabric.IText('text', { left: 100, top: 100 });
-              self.canvas.add(text);
-
-
+              self.state.stage.add(text);
             }
 
         }
         reader.readAsDataURL(file);
     },
     preview: function() {
-      this.canvas.deactivateAllWithDispatch();
+      this.state.stage.deactivateAllWithDispatch();
       var img =document.getElementById("preview");
-      img.src = this.canvas.toDataURL('png');
-      this.canvas.selection = true;
+      img.src = this.state.stage.toDataURL('png');
+      this.state.stage.selection = true;
       //  alert(this.canvas.toDataURL('png').length)
     },
     setText:function(){
-      var text= this.canvas.getActiveObject();
+      var text= this.state.stage.getActiveObject();
       if (text instanceof fabric.Text){
        text.setText("ok changed!");
-      this.canvas.renderAll();
+       this.state.stage.renderAll();
       }
     },
     render: function() {
@@ -100,9 +100,9 @@ module.exports = React.createClass({
               <button onClick = {this.preview}>Preview</button>
               <button onClick = {this.setText}>Text</button>
             </div>
-            <canvas width = "800" height = "600" id = {this.id}></canvas>
+            <canvas width = "800" height = "600" id = {this.id} ></canvas>
             <img id="preview"></img>
-            <LocalItem></LocalItem>
+            <LocalItem stage={this.state.stage}></LocalItem>
           </div>
         )
 
