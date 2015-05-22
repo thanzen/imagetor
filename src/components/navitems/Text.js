@@ -1,5 +1,7 @@
 var React = require("react/addons");
 var NavItemMixin = require("../navItemMixin");
+var Modal = require('react-bootstrap/lib/Modal');
+var OverlayMixin = require('react-bootstrap/lib/OverlayMixin');
 var hidden={
   display:"none"
 };

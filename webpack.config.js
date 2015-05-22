@@ -19,7 +19,7 @@ module.exports = {
   devtool: false,
   entry: [
       'webpack/hot/only-dev-server',
-      './src/components/ImagetorApp.js'
+      './src/components/ImagetorApp.jsx'
   ],
 
   stats: {
@@ -28,7 +28,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js'],
+    extensions: ['', '.js','.jsx'],
     alias: {
       'styles': __dirname + '/src/styles',
       'mixins': __dirname + '/src/mixins',
@@ -42,7 +42,7 @@ module.exports = {
       loader: 'jsxhint'
     }],
     loaders: [{
-      test: /\.js$/,
+      test: /\.(js|jsx)$/,
       exclude: /node_modules/,
       loader: 'react-hot!babel-loader'
     }, {
