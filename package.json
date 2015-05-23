@@ -10,6 +10,7 @@
   "mainInput": "ImagetorApp",
   "mainOutput": "main",
   "dependencies": {
+    "bootstrap": "^3.3.4",
     "flux": "^2.0.3",
     "jsdom": "^5.4.1",
     "normalize.css": "~3.0.3",

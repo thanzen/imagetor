@@ -1,5 +1,5 @@
 var React = require("react/addons");
-var uuid = require("./uuid");
+var uuid = require("../uuid");
 var LocalItem = require("./navitems/LocalImage");
 var fabric = require("../libs/fabric.js").fabric;
 var EVENTS = [
