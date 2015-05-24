@@ -16,7 +16,6 @@ module.exports = {
 
   cache: true,
   debug: true,
-  devtool: false,
   entry: [
       'webpack/hot/only-dev-server',
       './src/components/ImagetorApp.jsx'
@@ -35,6 +34,7 @@ module.exports = {
       'components': __dirname + '/src/components/'
     }
   },
+  devtool: "#inline-source-map", // Jup, sourcemaps
   module: {
     preLoaders: [{
       test: /\.js$/,

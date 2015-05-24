@@ -17,8 +17,8 @@
     "files": [
         "./dispatcher.ts",
         "./enums.ts",
+        "./eventType.ts",
         "./libs/definitions/fabric.d.ts",
-        "./libs/definitions/flux.d.ts",
-        "./stage.ts"
+        "./libs/definitions/flux.d.ts"
     ]
 }

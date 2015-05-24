@@ -22,7 +22,7 @@ module.exports = React.createClass({
       reader.onload = function(aImg) {
           img.src = aImg.target.result;
           var imgInstance = new fabric.Image(img, {});
-          self.props.stage.add(imgInstance);
+          self.stage.add(imgInstance);
       }
       reader.readAsDataURL(file);
   },

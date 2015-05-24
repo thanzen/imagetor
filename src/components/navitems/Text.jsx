@@ -2,31 +2,49 @@ var React = require("react/addons");
 var NavItemMixin = require("../navItemMixin");
 var Modal = require('react-bootstrap/lib/Modal');
 var OverlayMixin = require('react-bootstrap/lib/OverlayMixin');
+var TextForm = require('./TextForm');
+var dispatcher = require("../../dispatcher");
+var EventType = require("../../eventType");
 var hidden={
   display:"none"
 };
 module.exports = React.createClass({
   mixins: [NavItemMixin], // Set mixins
+  getInitialState: function () {
+    return ({content:""});
+  },
   componentWillMount() {
     this.iconUrl = "../images/folder_64.ico";
     this.toolTip = "Open";
   },
-  onClick() {
-    React.findDOMNode(this.refs.fileInput).click();
+  registerEvents: function () {
+    var self = this;
+    dispatcher.register(function (action) {
+        switch (action.type) {
+            case EventType.CHANGE_TEXT_CONTENT:
+                if(action.content!==""){
+                  self.selected.setText(action.content);
+                  self.stage.renderAll();
+                }else if(self.selected){
+                  self.stage.remove(self.selected);
+                  self.stage.deactivateAllWithDispatch();
+                }
+
+                break;
+            default:
+                break;
+        }
+    });
   },
-  handleFile: function(e) {
-      var self = this;
-      var reader = new FileReader();
-      var file = e.target.files[0];
-      var img = document.createElement("img");
-      img.classList.add("obj");
-      img.file = file;
-      reader.onload = function(aImg) {
-          img.src = aImg.target.result;
-          var imgInstance = new fabric.Image(img, {});
-          self.props.stage.add(imgInstance);
-      }
-      reader.readAsDataURL(file);
+  onClick() {
+    if (this.selected instanceof fabric.Text){
+      this.setState({content:this.selected.getText()});
+    }else{
+      var text = new fabric.IText('', { left: 100, top: 100 });
+      this.stage.add(text);
+      this.stage.setActiveObject(text);
+    }
+    dispatcher.dispatch({type: EventType.OPEN_TEXT_FORM});
   },
   render : function(){
     var icon = null;
@@ -35,7 +53,7 @@ module.exports = React.createClass({
     }
     return  (<div onClick={this.onClick}>
               {icon}
-              <input type = "file" ref="fileInput" style={hidden} accept = "image/*" onChange = {this.handleFile}/>
+              <TextForm/>
             </div>);
   }
 });
