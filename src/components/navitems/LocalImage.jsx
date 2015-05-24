@@ -5,11 +5,12 @@ var hidden={
 };
 module.exports = React.createClass({
   mixins: [NavItemMixin], // Set mixins
-  componentWillMount() {
-    this.iconUrl = "../images/folder_64.ico";
-    this.toolTip = "Open";
-  },
-  onClick() {
+  // getDefaultProps: function(){
+  //   return {
+  //     iconUrl : "../images/folder_64.ico"
+  //   }
+  // },
+  onClick:function() {
     React.findDOMNode(this.refs.fileInput).click();
   },
   handleFile: function(e) {
@@ -23,17 +24,19 @@ module.exports = React.createClass({
           img.src = aImg.target.result;
           var imgInstance = new fabric.Image(img, {});
           self.stage.add(imgInstance);
+          React.findDOMNode(self.refs.fileInput).value = "";
       }
       reader.readAsDataURL(file);
   },
   render : function(){
     var icon = null;
     if(this.iconUrl!==""){
-       icon = <img src={this.iconUrl} alt={this.toolTip}></img>;
+       icon = <img src={this.props.iconUrl}></img>;
     }
     return  (<div onClick={this.onClick}>
-              {icon}
-              <input type = "file" ref="fileInput" style={hidden} accept = "image/*" onChange = {this.handleFile}/>
+            <i className={"fa fa-folder-open"} >    </i>
+              <input type = "file" ref="fileInput" style={hidden} accept = "image/*"  onChange = {this.handleFile}/>
+
             </div>);
   }
 });

@@ -5,6 +5,7 @@ var Col = require('react-bootstrap/lib/Col');
 var LocalItem = require("./navitems/LocalImage");
 var Text = require("./navitems/Text");
 var TextForm = require("./navitems/TextForm");
+var Navbar = require("./navitems/navbar/Navbar");
 var fabric = require("../libs/fabric.js").fabric;
 var dispatcher = require("../dispatcher");
 var EventType = require("../eventType");
@@ -32,9 +33,11 @@ var Editor = React.createClass({
   render: function() {
     return (
         <Grid>
+          <row>
+            <Navbar></Navbar>
+          </row>
           <Row>
             <Col md={2} >
-              <LocalItem></LocalItem>
               <Text></Text>
             </Col>
             <Col md={10} ref="canvas" style={rowStyle}>

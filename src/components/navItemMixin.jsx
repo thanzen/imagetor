@@ -2,8 +2,6 @@ var React = require("react/addons");
 var dispatcher = require("../dispatcher");
 var EventType = require("../eventType");
 module.exports  = {
-  iconUrl:"",
-  toolTip:"",
   stage:null,
   selected:null,
   componentDidMount: function () {

@@ -34,7 +34,8 @@ module.exports = {
       'components': __dirname + '/src/components/'
     }
   },
-  devtool: "#inline-source-map", // Jup, sourcemaps
+  devtool: false, //
+  //devtool: "#inline-source-map", // Jup, sourcemaps
   module: {
     preLoaders: [{
       test: /\.js$/,

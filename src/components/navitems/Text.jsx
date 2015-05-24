@@ -36,7 +36,7 @@ module.exports = React.createClass({
         }
     });
   },
-  onClick() {
+  onClick:function() {
     if (this.selected instanceof fabric.Text){
       this.setState({content:this.selected.getText()});
     }else{
