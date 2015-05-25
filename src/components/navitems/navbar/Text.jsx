@@ -8,12 +8,15 @@ var MenuItem = require('react-bootstrap/lib/MenuItem');
 var NavItemMixin = require("../../navItemMixin");
 var dispatcher = require("../../../dispatcher");
 var EventType = require("../../../eventType");
+var textareaStyle = {
+   resize:"vertical"/*will prevent resizing horizontally*/
+}
 
 module.exports = React.createClass({
   mixins: [NavItemMixin], // Set mixins
   getInitialState:function(){
     return {
-      text:"ddd",
+      text:"",
       currentFamily:"normal",
       currentSize:40,
       currentBackground:"black"
@@ -22,14 +25,17 @@ module.exports = React.createClass({
   handleSizeChange: function (event) {
     this.setState({currentSize: event.target.value});
   },
+  handleTextChange: function (event) {
+    this.setState({text: event.target.value});
+  },
   handleFontFamilySelect:function(selectedKey) {
     alert('selected ' + selectedKey);
   },
   render : function(){
     var panel =
     <Popover title='Text'>
-      <textarea  value={this.state.text}
-                onChange={this.handleChange}  />
+      <textarea rows="2" cols="30" maxlength="30" style={textareaStyle} value={this.state.text}
+                onChange={this.handleTextChange}  />
               <br/>
       <strong>Font family</strong>
       <DropdownButton eventKey={1} title={this.state.currentFamily} onSelect={this.handleFontFamilySelect} >
