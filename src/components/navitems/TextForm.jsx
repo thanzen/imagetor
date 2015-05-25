@@ -66,7 +66,7 @@ var TextForm = React.createClass({
             <Modal {...this.props} bsStyle='primary' title={'Text'}
                                    animation={true} onRequestHide={this.handleToggle}>
                             <div className='modal-body'>
-                        {'Text:         '}<textarea  value={this.state.content}
+              <textarea  value={this.state.content}
                         onChange={this.handleChange}  />
 
                 </div>

@@ -5,11 +5,6 @@ var hidden={
 };
 module.exports = React.createClass({
   mixins: [NavItemMixin], // Set mixins
-  // getDefaultProps: function(){
-  //   return {
-  //     iconUrl : "../images/folder_64.ico"
-  //   }
-  // },
   onClick:function() {
     React.findDOMNode(this.refs.fileInput).click();
   },
@@ -34,7 +29,7 @@ module.exports = React.createClass({
        icon = <img src={this.props.iconUrl}></img>;
     }
     return  (<div onClick={this.onClick}>
-            <i className={"fa fa-folder-open"} >    </i>
+            <i className={"fa fa-folder-open fa-2x"} >    </i>
               <input type = "file" ref="fileInput" style={hidden} accept = "image/*"  onChange = {this.handleFile}/>
 
             </div>);
