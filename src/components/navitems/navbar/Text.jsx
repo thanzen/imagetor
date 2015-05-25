@@ -13,29 +13,36 @@ module.exports = React.createClass({
   mixins: [NavItemMixin], // Set mixins
   getInitialState:function(){
     return {
+      text:"ddd",
       currentFamily:"normal",
       currentSize:40,
       currentBackground:"black"
     };
   },
-  handleChange: function (event) {
-      this.setState({currentSize: event.target.value});
+  handleSizeChange: function (event) {
+    this.setState({currentSize: event.target.value});
+  },
+  handleFontFamilySelect:function(selectedKey) {
+    alert('selected ' + selectedKey);
   },
   render : function(){
     var panel =
     <Popover title='Text'>
+      <textarea  value={this.state.text}
+                onChange={this.handleChange}  />
+              <br/>
       <strong>Font family</strong>
-      <DropdownButton eventKey={1} title={this.state.currentFamily} >
+      <DropdownButton eventKey={1} title={this.state.currentFamily} onSelect={this.handleFontFamilySelect} >
         <MenuItem eventKey='1'>{this.state.currentFamily}</MenuItem>
       </DropdownButton>
       <br/>
       <strong>Font size</strong>
-      <input type="number" name="quantity" min="20" max="80"
-        onChange={this.handleChange}  value={this.state.currentSize}/>
+      <input type="number" min="20" max="80"
+        onChange={this.handleSizeChange}  value={this.state.currentSize}/>
     </Popover>;
     return  (
       <ButtonToolbar>
-        <OverlayTrigger trigger='click' placement='bottom' overlay={panel}>
+        <OverlayTrigger trigger='click' placement='bottom' rootClose={true} overlay={panel}>
           <i className={"fa fa-font fa-2x"} > </i>
         </OverlayTrigger>
       </ButtonToolbar>
